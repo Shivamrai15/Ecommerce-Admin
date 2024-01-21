@@ -16,10 +16,14 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { LoginSchema } from "@/schemas/login-schema";
+import { useState } from "react";
+import { Loader } from "lucide-react";
+import { login } from "@/actions/login";
+import { toast } from "sonner";
 
 export const LoginForm = () => {
 
-
+    const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver : zodResolver(LoginSchema),
         defaultValues : {
@@ -28,8 +32,21 @@ export const LoginForm = () => {
         }
     });
 
-    const onSubmit = (values : z.infer<typeof LoginSchema>)=>{
-        console.log(values);
+    const onSubmit = async(values : z.infer<typeof LoginSchema>)=>{
+        try {
+            setIsLoading(true);
+            const response = await login(values);
+            if (response.error){
+                toast.error(response.error);
+            }else{
+                toast.success(response.success);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong");
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -56,6 +73,7 @@ export const LoginForm = () => {
                                             {...field}
                                             placeholder="john@example.com"
                                             type="email"
+                                            disabled = {isLoading}
                                             className="outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                                         />
                                     </FormControl>
@@ -74,6 +92,7 @@ export const LoginForm = () => {
                                             {...field}
                                             placeholder="******"
                                             type="password"
+                                            disabled = {isLoading}
                                             className="outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                                         />
                                     </FormControl>
@@ -83,9 +102,12 @@ export const LoginForm = () => {
                         />
                     </div>
                     <Button
+                        disabled = {isLoading}
                         className="w-full"                    
                     >
-                        Login
+                        {isLoading ? (
+                            <Loader className="animate-spin"/> 
+                        ) : "Login"}
                     </Button>
                 </form>
             </Form>

@@ -16,9 +16,14 @@ import * as z from "zod";
 import { RegisterSchema } from "@/schemas/register-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { register } from "@/actions/register";
+import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 export const SignUpForm = () => {
 
+    const [isLoading, setIsLoading] = useState(false);
 
     const form = useForm<z.infer<typeof RegisterSchema>>({
         resolver : zodResolver(RegisterSchema),
@@ -29,8 +34,15 @@ export const SignUpForm = () => {
         }
     });
 
-    const onSubmit = (values : z.infer<typeof RegisterSchema>)=>{
-        console.log(values);
+    const onSubmit = async(values : z.infer<typeof RegisterSchema>)=>{
+        setIsLoading(true);
+        const response = await register(values);
+        if (response.error){
+            toast.error(response.error);
+        } else {
+            toast.error(response.success);
+        }
+        setIsLoading(false);
     }
 
     return (
@@ -55,6 +67,7 @@ export const SignUpForm = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled = {isLoading}
                                             placeholder="John"
                                             type="name"
                                             className="outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -73,6 +86,7 @@ export const SignUpForm = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled = {isLoading}
                                             placeholder="john@example.com"
                                             type="email"
                                             className="outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -91,6 +105,7 @@ export const SignUpForm = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled = {isLoading}
                                             placeholder="******"
                                             type="password"
                                             className="outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
@@ -102,9 +117,12 @@ export const SignUpForm = () => {
                         />
                     </div>
                     <Button
+                        disabled = {isLoading}
                         className="w-full"                    
                     >
-                        Create an account
+                        {isLoading ? (
+                            <Loader className="animate-spin"/> 
+                        ) : "Create an account"}
                     </Button>
                 </form>
             </Form>
