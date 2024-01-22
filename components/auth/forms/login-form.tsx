@@ -20,6 +20,7 @@ import { useState } from "react";
 import { Loader } from "lucide-react";
 import { login } from "@/actions/login";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export const LoginForm = () => {
 
@@ -43,7 +44,6 @@ export const LoginForm = () => {
             }
         } catch (error) {
             console.error(error);
-            toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }
@@ -97,13 +97,26 @@ export const LoginForm = () => {
                                         />
                                     </FormControl>
                                     <FormMessage className="w-full px-2 py-2 bg-red-200/70 rounded-md"/>
+                                    <Button
+                                        size="sm"
+                                        variant="link"
+                                        asChild
+                                        className="px-0 font-normal text-xs"
+                                    >
+                                        <Link
+                                        href="/forget"
+                                        >
+                                        Forget Password
+                                        </Link>
+                                    </Button>
                                 </FormItem>
                             )}
                         />
                     </div>
                     <Button
                         disabled = {isLoading}
-                        className="w-full"                    
+                        className="w-full"  
+                        type="submit"                  
                     >
                         {isLoading ? (
                             <Loader className="animate-spin"/> 

@@ -1,4 +1,5 @@
 import { emailVerificationTemplet } from "@/mail-templets/email-verification-templet";
+import { forgetPasswordTemplet } from "@/mail-templets/forget-password-templet";
 import nodemailer from "nodemailer";
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -31,6 +32,29 @@ export const sendVerificationEmail = async(
             html : emailTemplet
         });
         
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export const sendPasswordResetEmail = async(
+    email : string,
+    token : string,
+    name : string
+) => {
+    try {
+        
+        const confirmUri = `${domain}/new-password?token=${token}`;
+        const emailTemplet = forgetPasswordTemplet(name, confirmUri);
+
+        await transporter.sendMail({
+            from : process.env.EMAIL,
+            to : email,
+            subject : "Forgot Password",
+            html : emailTemplet
+        });
+
     } catch (error) {
         console.log(error);
     }

@@ -118,7 +118,8 @@ export const SignUpForm = () => {
                     </div>
                     <Button
                         disabled = {isLoading}
-                        className="w-full"                    
+                        className="w-full"    
+                        type="submit"                
                     >
                         {isLoading ? (
                             <Loader className="animate-spin"/> 
