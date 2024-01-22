@@ -2,6 +2,8 @@
 
 import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
+import { sendVerificationEmail } from "@/lib/mail";
+import { generateVerificationToken } from "@/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas/login-schema";
 import { AuthError } from "next-auth";
@@ -22,12 +24,19 @@ export const login = async(values : z.infer<typeof LoginSchema>)=>{
             return { error : "Account does not exist"}
         }
 
-        // TODO Email verification
         
-        // const isVerified = !!existingUser.emailVerified
-        // if (!isVerified){
-        //     return { success : "Verification email has been sent"}
-        // }
+        const isVerified = !!existingUser.emailVerified
+        if (!isVerified){
+            
+            // Generating verification token
+            const token = await generateVerificationToken(email);
+            if (!token){
+                return { error : "Internal server error"}
+            }
+
+            await sendVerificationEmail(email, token.token, existingUser.name);
+            return { success : "Verification email has been sent"}
+        }
 
         await signIn("credentials", {
             email,

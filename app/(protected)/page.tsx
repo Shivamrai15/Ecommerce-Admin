@@ -1,7 +1,14 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
+
 const Home = () => {
     return (
         <div>
-            Admin Dashboard 
+            <Button onClick={()=>signOut()}>
+                SignOut
+            </Button>
         </div>
     );
 }
