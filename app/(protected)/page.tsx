@@ -1,16 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
+import { useEffect } from "react";
+
+import { useStoreModal } from "@/hooks/use-store-modal";
 
 const Home = () => {
-    return (
-        <div>
-            <Button onClick={()=>signOut()}>
-                SignOut
-            </Button>
-        </div>
-    );
+
+    const { isOpen, onOpen } = useStoreModal();
+
+    useEffect(()=>{
+        if(!isOpen){
+            onOpen();
+        }
+    }, [isOpen, onOpen]);
+
+    return null;
 }
 
 export default Home;

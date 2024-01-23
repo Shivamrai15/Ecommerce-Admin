@@ -53,3 +53,11 @@ model PasswordResetToken {
 
   @@unique([email, token])
 }
+
+model Store {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  userId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
