@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { Navbar } from "@/components/navbar";
 
 interface DashboardLayoutPageProps {
     children : React.ReactNode;
@@ -32,7 +33,7 @@ const DashboardLayoutPage = async({
 
     return (
         <div className="h-full">
-            <div>TODO Navbar</div>
+            <Navbar />
             {children}
         </div>
     )
