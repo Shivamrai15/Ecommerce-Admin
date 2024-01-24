@@ -28,6 +28,7 @@
     "nanoid": "^5.0.4",
     "next": "14.1.0",
     "next-auth": "^5.0.0-beta.4",
+    "next-cloudinary": "^5.20.0",
     "nodemailer": "^6.9.8",
     "prisma": "^5.8.1",
     "react": "^18",

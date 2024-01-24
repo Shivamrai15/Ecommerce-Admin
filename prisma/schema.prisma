@@ -55,9 +55,22 @@ model PasswordResetToken {
 }
 
 model Store {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  userId     String      @db.ObjectId
+  billboards BillBoard[] @relation("StoreToBillboard")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model BillBoard {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  userId    String   @db.ObjectId
+  storeId   String   @db.ObjectId
+  store     Store    @relation("StoreToBillboard", fields: [storeId], references: [id], onDelete: Cascade)
+  label     String
+  imageUrl  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }

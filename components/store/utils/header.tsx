@@ -1,16 +1,29 @@
+import { Badge } from "@/components/ui/badge";
+
 interface HeaderProps {
     title : string;
     description : string;
+    badge? : string
 }
 
 export const Header = ({
     title,
-    description
+    description,
+    badge
 } : HeaderProps) => {
 
     return (
         <div>
-            <h2 className="text-3xl font-extrabold tracking-tight">{title}</h2>
+            <div className="flex items-center gap-x-4">
+                <h2 className="text-3xl font-extrabold tracking-tight">{title}</h2>
+                {
+                    badge && (
+                        <Badge className="h-8 w-10 bg-muted text-zinc-600 dark:text-zinc-400 text-xl font-extrabold">
+                            {badge}
+                        </Badge>
+                    )
+                }
+            </div>
             <p className="text-sm text-muted-foreground">{description}</p>
         </div>
     )
