@@ -31,7 +31,7 @@ export const AlertModal = ({
     return (
         <Modal
             title="Are you absolutely sure?"
-            description="This action cannot be undone. This will permanently delete your store and remove your data from our servers."
+            description="This action cannot be undone. This will permanently delete your data and remove your data from our servers."
             isOpen = {isOpen}
             onClose={onClose}
         >

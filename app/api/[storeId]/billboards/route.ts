@@ -63,17 +63,17 @@ export async function GET(
             return new NextResponse("StoreId is required", {status :400});
         }
 
-        const storeById = await db.store.findUnique({
+        const billboards = await db.billBoard.findMany({
             where : {
-                id : params.storeId
+                storeId : params.storeId
             }
         });
 
-        if (!storeById ){
+        if (!billboards ){
             return new NextResponse("Store does not exists", {status :404});
         }
 
-        return NextResponse.json(storeById);
+        return NextResponse.json(billboards);
 
     } catch (error) {
         console.log("BILLBOARD API", error);

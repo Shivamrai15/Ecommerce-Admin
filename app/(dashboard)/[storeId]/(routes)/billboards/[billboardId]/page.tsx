@@ -6,13 +6,15 @@ const BillboardPage = async(
     { params } : { params : { billboardId : string }}
 ) => {
 
-    const billboard = await db.billBoard.findUnique({
-        where : {
-            id : params.billboardId
-        }
-    });
+    let billboard = null
 
-
+    if (params.billboardId !== "create") {
+        billboard = await db.billBoard.findUnique({
+            where : {
+                id : params.billboardId
+            }
+        });
+    }
 
     return (
         <div className="flex flex-col">
