@@ -5,6 +5,7 @@ import { CellActions } from "./cell-actions";
 import { CategoryCellActions } from "./category-cell-actions";
 import { SizeCellActions } from "./size-cell-actions";
 import { ColorCellActions } from "./color-cell-actions";
+import { ProductCellActions } from "./product-cell-actions";
 
 export type Billboard = {
     id: string
@@ -88,7 +89,7 @@ export type ColorColumn = {
     createdAt : string
 }
 
-export const colorColumns: ColumnDef<SizeColumn>[] = [
+export const colorColumns: ColumnDef<ColorColumn>[] = [
     {
         accessorKey: "name",
         header: "Name",
@@ -110,5 +111,67 @@ export const colorColumns: ColumnDef<SizeColumn>[] = [
     {
         id : "actions",
         cell : ({row}) => <ColorCellActions data={row.original}/>
+    }
+];
+
+
+export type ProductColumn = {
+    id: string,
+    name : string,
+    isFeatured : boolean,
+    isArchieved : boolean,
+    price : string,
+    stock : number,
+    category : string,
+    size : string,
+    color : string,
+    createdAt : string
+}
+
+export const productColumns: ColumnDef<ProductColumn>[] = [
+    {
+        accessorKey: "name",
+        header: "Name",
+    },
+    {
+        accessorKey: "price",
+        header: "Price",
+    },
+    {
+        accessorKey: "category",
+        header: "Category",
+    },
+    {
+        accessorKey: "stock",
+        header: "Stock",
+    },
+    {
+        accessorKey: "size",
+        header: "Size",
+    },
+    {
+        accessorKey: "isArchieved",
+        header: "Archieved",
+    },
+    {
+        accessorKey: "isFeatured",
+        header: "Featured",
+    },
+    {
+        accessorKey: "color",
+        header: "Color",
+        cell : ({row}) => (
+            <div className="flex items-center">
+                <div className="h-5 w-6 rounded-full" style={{backgroundColor : row.original.color}} />
+            </div>
+        )
+    },
+    {
+        accessorKey: "createdAt",
+        header: "Date",
+    },
+    {
+        id : "actions",
+        cell : ({row}) => <ProductCellActions data={row.original}/>
     }
 ]

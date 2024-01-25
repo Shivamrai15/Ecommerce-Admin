@@ -12,3 +12,8 @@ export const copyToClipboard = (text : string, message? : string)=>{
     toast.info(message);
   }
 }
+
+export const formatter = new Intl.NumberFormat("en-IN", {
+  style : "currency",
+  currency : "INR"
+})
