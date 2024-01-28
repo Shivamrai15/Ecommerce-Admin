@@ -6,6 +6,7 @@ import { CategoryCellActions } from "./category-cell-actions";
 import { SizeCellActions } from "./size-cell-actions";
 import { ColorCellActions } from "./color-cell-actions";
 import { ProductCellActions } from "./product-cell-actions";
+import { CategoryType, ProductType } from "@prisma/client";
 
 export type Billboard = {
     id: string
@@ -32,6 +33,7 @@ export type CategoryColumn = {
     id: string
     name : string
     billboardLabel : string,
+    type : CategoryType | null
     createdAt : string
 }
 
@@ -44,6 +46,10 @@ export const categoryColumns: ColumnDef<CategoryColumn>[] = [
         accessorKey: "billboard",
         header: "Billboard",
         cell : ({row}) => row.original.billboardLabel
+    },
+    {
+        accessorKey: "type",
+        header: "Type",
     },
     {
         accessorKey: "createdAt",

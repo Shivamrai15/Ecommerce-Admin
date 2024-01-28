@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { ProductSchema } from "@/schemas/product-form-schema";
+import { ProductType } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST( 
@@ -77,11 +78,19 @@ export async function GET(
         const colorId = searchParams.get('colorId') || undefined;
         const sizeId = searchParams.get('sizeId') || undefined;
         const isFeatured = searchParams.get('isFeatured');
+        const limit = searchParams.get('limit');
+        const page = searchParams.get("page");
+        const type = searchParams.get('type')|| undefined;
 
-        console.log(categoryId);
+
+        let productType = undefined;
 
         if (!params.storeId) {
             return new NextResponse("StoreId is required", {status :400});
+        }
+
+        if ( (type == ProductType.MEN) || (type == ProductType.WOMEN) || (type == ProductType.KIDS) || (type == ProductType.BEAUTY)) {
+            productType = type;
         }
 
         const products = await db.product.findMany({
@@ -90,6 +99,7 @@ export async function GET(
                 categoryId,
                 colorId,
                 sizeId,
+                type : productType,
                 isFeatured: isFeatured ? true : undefined,
             },
             include : {
@@ -100,7 +110,9 @@ export async function GET(
             },
             orderBy : {
                createdAt : "desc" 
-            }
+            },
+            skip: (page && limit) ? (Number.parseInt(page)-1)*Number.parseInt(limit) : undefined,
+            take : limit? Number.parseInt(limit) : undefined
         });
 
         return NextResponse.json(products);

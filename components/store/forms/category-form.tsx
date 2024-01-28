@@ -4,7 +4,7 @@ import * as z from "zod";
 import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
-import { BillBoard, Category } from "@prisma/client";
+import { BillBoard, Category, CategoryClassification, CategoryType, ProductType } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
@@ -56,7 +56,7 @@ export const CategoryForm = ({
     const form = useForm<z.infer<typeof CategoryFormSchema>>({
         resolver : zodResolver(CategoryFormSchema),
         defaultValues :  data || {
-            name : "",
+            name : ""
         }
     });
 
@@ -173,6 +173,83 @@ export const CategoryForm = ({
                                                         value={billboard.id}
                                                     >
                                                         {billboard.label}
+                                                    </SelectItem>
+                                                ))
+                                            }
+                                        </SelectContent>    
+                                    </Select>
+                                    <FormMessage className="w-full px-2 py-2 bg-destructive/20 text-destructive/70 rounded-md"/>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name = "type"
+                            render={({field})=>(
+                                <FormItem>
+                                    <FormLabel>Category Type</FormLabel>
+                                    <Select
+                                        disabled = {loading}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue defaultValue={field.value} placeholder = "Select a category" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {
+                                                [CategoryType.MEN, CategoryType.WOMEN, CategoryType.UNISEX, CategoryType.BEAUTY].map((item)=>(
+                                                    <SelectItem 
+                                                        key={item}
+                                                        value={item}
+                                                    >
+                                                        {item}
+                                                    </SelectItem>
+                                                ))
+                                            }
+                                        </SelectContent>    
+                                    </Select>
+                                    <FormMessage className="w-full px-2 py-2 bg-destructive/20 text-destructive/70 rounded-md"/>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name = "classification"
+                            render={({field})=>(
+                                <FormItem>
+                                    <FormLabel>Product Classification</FormLabel>
+                                    <Select
+                                        disabled = {loading}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue defaultValue={field.value} placeholder = "Classify Product" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {
+                                                [
+                                                    CategoryClassification.TOPWEAR,
+                                                    CategoryClassification.BOTTOMWEAR,
+                                                    CategoryClassification.FOOTWEAR,
+                                                    CategoryClassification.INNERWEARANDSLEEPWEAR,
+                                                    CategoryClassification.MAKEUP,
+                                                    CategoryClassification.SKINCARE,
+                                                    CategoryClassification.HAIRCARE,
+                                                    CategoryClassification.FRAGRANCES
+                                                ].map((item)=>(
+                                                    <SelectItem 
+                                                        key={item}
+                                                        value={item}
+                                                    >
+                                                        {item}
                                                     </SelectItem>
                                                 ))
                                             }

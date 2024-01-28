@@ -81,16 +81,36 @@ model BillBoard {
   @@index([storeId])
 }
 
+enum CategoryType {
+  MEN
+  WOMEN
+  UNISEX
+  BEAUTY
+}
+
+enum CategoryClassification {
+  TOPWEAR
+  BOTTOMWEAR
+  FOOTWEAR
+  INNERWEARANDSLEEPWEAR
+  MAKEUP
+  SKINCARE
+  HAIRCARE
+  FRAGRANCES
+}
+
 model Category {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  storeId     String    @db.ObjectId
-  store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
-  billboardId String    @db.ObjectId
-  billboard   BillBoard @relation(fields: [billboardId], references: [id])
-  products    Product[] @relation("CategoryToProduct")
-  name        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id             String                 @id @default(auto()) @map("_id") @db.ObjectId
+  type           CategoryType           @default(UNISEX)
+  classification CategoryClassification @default(TOPWEAR)
+  storeId        String                 @db.ObjectId
+  store          Store                  @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboardId    String                 @db.ObjectId
+  billboard      BillBoard              @relation(fields: [billboardId], references: [id])
+  products       Product[]              @relation("CategoryToProduct")
+  name           String
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
 
   @@index([storeId, billboardId])
 }

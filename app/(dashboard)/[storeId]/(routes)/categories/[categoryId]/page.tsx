@@ -12,6 +12,9 @@ const CategoryPage = async(
         category = await db.category.findUnique({
             where : {
                 id : params.categoryId
+            },
+            include : {
+                billboard : true
             }
         });
     }

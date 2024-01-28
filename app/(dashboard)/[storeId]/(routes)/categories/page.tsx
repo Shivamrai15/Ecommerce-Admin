@@ -25,6 +25,7 @@ const CategoriesPage = async(
         id: item.id,
         name : item.name,
         billboardLabel : item.billboard.label,
+        type : item.type,
         createdAt : format(item.createdAt, "MMMM do, yyyy")
     }))
 

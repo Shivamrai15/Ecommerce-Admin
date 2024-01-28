@@ -8,7 +8,7 @@ export async function POST(
 ) {
     try {
 
-        const { name, billboardId } = await request.json();
+        const { name, billboardId, type, classification } = await request.json();
         const session = await auth();
 
         if (!session ){
@@ -21,6 +21,10 @@ export async function POST(
 
         if (!billboardId){
             return new NextResponse("Billboard Id is required", {status :400});
+        }
+
+        if (!type){
+            return new NextResponse("Type is required", {status :400});
         }
 
         if (!params.storeId) {
@@ -41,6 +45,8 @@ export async function POST(
             data : {
                 name,
                 billboardId,
+                type,
+                classification,
                 storeId : params.storeId
             }
         });
@@ -66,6 +72,9 @@ export async function GET(
         const categories = await db.category.findMany({
             where : {
                 storeId : params.storeId
+            },
+            include : {
+                billboard : true
             }
         });
 

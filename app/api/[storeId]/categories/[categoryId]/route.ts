@@ -9,7 +9,7 @@ export async function PATCH (
     try {
         
         const session = await auth();
-        const { name, billboardId } = await request.json();
+        const { name, billboardId, type } = await request.json();
 
         if (!session || !session.user || !session.user.id){
             return new NextResponse("Unauthorized Access", {status : 401});
@@ -21,6 +21,10 @@ export async function PATCH (
 
         if (!billboardId){
             return new NextResponse("Billboard Id is required", { status : 400});
+        }
+
+        if (!type){
+            return new NextResponse("Type is required", { status : 400});
         }
 
         if (!params.storeId) {
@@ -47,9 +51,10 @@ export async function PATCH (
             },
             data : {
                 name,
-                billboardId
+                billboardId,
+                type
             }
-        })
+        });
 
         return NextResponse.json(category);
 

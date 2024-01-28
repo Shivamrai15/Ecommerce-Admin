@@ -7,4 +7,6 @@ export const CategoryFormSchema = z.object({
     billboardId : z.string().min(1, {
         message : "Billboard is required"
     }),
+    type : z.string(),
+    classification : z.string()
 });

@@ -59,7 +59,7 @@ export const SubNav = ({
     
     return (
         <nav className={cn(
-            "flex items-center space-x-4 lg:space-x-6",
+            "flex flex-col space-y-5 md:space-y-0 md:flex-row md:items-center md:space-x-4 lg:space-x-6",
             className
         )}>
             {
