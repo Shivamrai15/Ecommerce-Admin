@@ -54,12 +54,12 @@ export async function POST ( req : Request ) {
 
         try {
             
-            const updatedItems = Promise.all(
+            const updatedItems = await Promise.all(
                 order.orderItems.map(async(orderItem)=>{
     
                     const product = await db.product.findUnique({
                         where : {
-                            id : orderItem.id
+                            id : orderItem.productId
                         }
                     });
         
