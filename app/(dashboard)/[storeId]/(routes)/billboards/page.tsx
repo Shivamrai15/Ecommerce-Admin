@@ -3,6 +3,11 @@ import { db } from "@/lib/db";
 
 import { BillboardClient } from "@/components/store/utils/billboard-client";
 import { Billboard } from "@/components/store/utils/columns";
+import { Metadata } from "next";
+
+export const metadata : Metadata = {
+    title : "Store | Billboards"
+}
 
 const BillboardsPage = async(
     {params} : {params : { storeId : string }}

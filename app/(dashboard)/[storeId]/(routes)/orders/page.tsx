@@ -1,9 +1,14 @@
+import { Metadata } from "next";
 import { format } from "date-fns";
 import { db } from "@/lib/db";
 
 import { OrderClient } from "@/components/store/utils/order-client";
 import { OrderColumn } from "@/components/store/utils/columns";
 import { formatter } from "@/lib/utils";
+
+export const metadata : Metadata = {
+    title : "Store | Orders"
+}
 
 const OrdersPage = async(
     {params} : {params : { storeId : string }}

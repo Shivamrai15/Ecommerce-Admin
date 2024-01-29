@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { format } from "date-fns";
 import { db } from "@/lib/db";
 
 import { CategoryColumn } from "@/components/store/utils/columns";
 import { CategoryClient } from "@/components/store/utils/category-client";
+
+export const metadata : Metadata = {
+    title : "Store | Categories"
+}
 
 const CategoriesPage = async(
     {params} : {params : { storeId : string }}

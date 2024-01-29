@@ -1,12 +1,18 @@
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
+
 import { SettingsForm } from "@/components/store/forms/settings-form";
 import { db } from "@/lib/db";
-import { redirect } from "next/navigation";
 
 
 interface SettingsPageProps {
     params : {
         storeId : string
     };
+}
+
+export const metadata : Metadata = {
+    title : "Store | Settings"
 }
 
 const SettingsPage = async({

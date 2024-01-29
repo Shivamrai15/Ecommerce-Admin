@@ -4,6 +4,11 @@ import { db } from "@/lib/db";
 import { ProductClient } from "@/components/store/utils/product-client";
 import { ProductColumn } from "@/components/store/utils/columns";
 import { formatter } from "@/lib/utils";
+import { Metadata } from "next";
+
+export const metadata : Metadata = {
+    title : "Store | Products"
+}
 
 const ProductsPage = async(
     {params} : {params : { storeId : string }}

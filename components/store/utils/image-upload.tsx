@@ -65,7 +65,7 @@ export const ImageUpload = ({
                     ))
                 }
             </div>
-            <CldUploadWidget onUpload={onUpload} uploadPreset="f3ytpcsd">
+            <CldUploadWidget onUpload={onUpload} uploadPreset="zmfxcswd">
                 { ({open}) => {
                     const onClick = ()=>{
                         open();

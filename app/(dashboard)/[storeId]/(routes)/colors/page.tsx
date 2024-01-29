@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { format } from "date-fns";
 import { db } from "@/lib/db";
 
 import { ColorColumn } from "@/components/store/utils/columns";
 import { ColorClient } from "@/components/store/utils/color-client";
+
+export const metadata : Metadata = {
+    title : "Store | Colors"
+}
 
 const ColorsPage = async(
     {params} : {params : { storeId : string }}

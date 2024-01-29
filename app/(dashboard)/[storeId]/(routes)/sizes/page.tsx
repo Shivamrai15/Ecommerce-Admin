@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { format } from "date-fns";
 import { db } from "@/lib/db";
 
 import { SizeColumn } from "@/components/store/utils/columns";
 import { SizeClient } from "@/components/store/utils/size-client";
+
+export const metadata : Metadata = {
+    title : "Store | Sizes"
+}
 
 const SizesPage = async(
     {params} : {params : { storeId : string }}
