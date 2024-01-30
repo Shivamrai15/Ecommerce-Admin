@@ -2,7 +2,7 @@ import { emailVerificationTemplet } from "@/mail-templets/email-verification-tem
 import { forgetPasswordTemplet } from "@/mail-templets/forget-password-templet";
 import nodemailer from "nodemailer";
 
-const domain = process.env.NEXT_PUBLIC_APP_URL;
+const domain = "https://ecommerce-admin-nu.vercel.app";
 
 const transporter = nodemailer.createTransport({
     service : "gmail",
