@@ -21,7 +21,6 @@ import { ResetPasswordSchema } from "@/schemas/reset-password-schema";
 import { Loader } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { reset } from "@/actions/reset";
 import { newPassword } from "@/actions/new-password";
 
 

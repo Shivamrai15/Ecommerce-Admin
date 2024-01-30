@@ -11,7 +11,10 @@ const nextConfig = {
                 hostname : "lh3.googleusercontent.com"
             }
         ]
-    }
+    },
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+    },
 };
 
 export default nextConfig;

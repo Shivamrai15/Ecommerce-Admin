@@ -42,7 +42,7 @@ export const TokenVerificationForm = () => {
             setError("Something went wrong");
         });
 
-    }, [token]);
+    }, [token, error, success]);
 
     useEffect(()=>{
         verifyToken();
