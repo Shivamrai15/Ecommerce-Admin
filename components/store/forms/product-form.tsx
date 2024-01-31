@@ -344,7 +344,7 @@ export const ProductForm = ({
                                                         key={size.id}
                                                         value={size.id}
                                                     >
-                                                        {size.name}
+                                                        {size.value}
                                                     </SelectItem>
                                                 ))
                                             }
