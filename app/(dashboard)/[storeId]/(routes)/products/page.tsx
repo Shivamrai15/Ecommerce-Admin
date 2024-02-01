@@ -37,7 +37,7 @@ const ProductsPage = async(
         price : formatter.format(item.price),
         stock : item.stock,
         category : item.category.name,
-        size : item.size.name,
+        size : item.size.value,
         color : item.color.value,
         createdAt : format(item.createdAt, "MMMM do, yyyy")
     }))
