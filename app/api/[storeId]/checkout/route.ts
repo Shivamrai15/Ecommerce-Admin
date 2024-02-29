@@ -21,7 +21,7 @@ export async function POST(
     
     try {
 
-        const { products } : { products: {id:string, quantity : number}[]} = await request.json();
+        const { products, orderId } : { products: {id:string, quantity : number}[], orderId : string } = await request.json();
 
         if (!products || products.length === 0){
             return new NextResponse("Product Ids are requierd", {status : 401})
@@ -77,8 +77,8 @@ export async function POST(
             phone_number_collection : {
                 enabled : true
             },
-            success_url : `${process.env.STORE_URL}/cart?success=1`,
-            cancel_url : `${process.env.STORE_URL}/cart?cancelled=1`,
+            success_url : `${process.env.STORE_URL}/cart?id=${orderId}`,
+            cancel_url : `${process.env.STORE_URL}/cart?cancelled=true`,
             metadata : {
                 orderId : order.id 
             },
@@ -86,7 +86,7 @@ export async function POST(
         });
     
         return NextResponse.json({
-            url : session.url
+            url : session.url,
         }, {
             headers : corsHeaders
         });
