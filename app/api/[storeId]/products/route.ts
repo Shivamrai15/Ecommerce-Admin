@@ -81,6 +81,11 @@ export async function GET(
         const limit = searchParams.get('limit');
         const page = searchParams.get("page");
         const type = searchParams.get('type')|| undefined;
+        const priceRange = searchParams.get('price');
+
+        const minRange = priceRange ? priceRange.split("-")[0] : null;
+        const maxRange = priceRange ? priceRange.split("-")[1] : null;
+
 
 
         let productType = undefined;
@@ -101,6 +106,10 @@ export async function GET(
                 sizeId,
                 type : productType,
                 isFeatured: isFeatured ? true : undefined,
+                price : {
+                    gte : (minRange ? Number.parseInt(minRange) : 0 ),
+                    lte : (maxRange ? Number.parseInt(maxRange) : 10000000 )
+                }
             },
             include : {
                 productImages : true,
