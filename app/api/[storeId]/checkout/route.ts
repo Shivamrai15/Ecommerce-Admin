@@ -77,8 +77,8 @@ export async function POST(
             phone_number_collection : {
                 enabled : true
             },
-            success_url : `${process.env.STORE_URL}/cart?id=${orderId}`,
-            cancel_url : `${process.env.STORE_URL}/cart?cancelled=true`,
+            success_url : `${process.env.STORE_URL}/checkout/cart?id=${orderId}`,
+            cancel_url : `${process.env.STORE_URL}/checkout/cart?cancelled=true`,
             metadata : {
                 orderId : order.id 
             },
